@@ -1,5 +1,5 @@
 const db = require("../models/index.model");
-const Group = db.groups;
+const Meter = db.meters;
 const Op = db.Sequelize.Op;
 
 exports.findAll = async (req, res) => {
@@ -10,7 +10,7 @@ exports.findAll = async (req, res) => {
   var lim = limit ? limit : 10;
   var offs = page ? (page - 1) * lim : 0;
 
-  await Group.findAndCountAll({
+  await Meter.findAndCountAll({
     where: condition,
     limit: parseInt(lim, 10),
     offset: parseInt(offs, 0),
@@ -53,7 +53,7 @@ exports.create = async (req, res) => {
     status: "Active",
   };
 
-  await Group.create(tmpData)
+  await Meter.create(tmpData)
     .then((data) => {
       res.status(201);
       res.send({
@@ -67,8 +67,7 @@ exports.create = async (req, res) => {
       res.send({
         status: "Error",
         statusCode: 500,
-        message:
-          err.message || "Some error occurred while retrieving groups.",
+        message: err.message || "Some error occurred while retrieving Meters.",
       });
     });
 };
@@ -86,7 +85,7 @@ exports.findOne = async (req, res) => {
     return;
   }
 
-  await Group.findByPk(id)
+  await Meter.findByPk(id)
     .then((data) => {
       res.status(200);
       res.send({
@@ -100,8 +99,7 @@ exports.findOne = async (req, res) => {
       res.send({
         status: "Error",
         statusCode: 500,
-        message:
-          err.message || "Some error occurred while retrieving groups.",
+        message: err.message || "Some error occurred while retrieving Meters.",
       });
     });
 };
@@ -134,7 +132,7 @@ exports.update = async (req, res) => {
     status: "Active",
   };
 
-  await Group.update(tmpData, {
+  await Meter.update(tmpData, {
     where: { id: id },
   })
     .then((data) => {
@@ -150,8 +148,7 @@ exports.update = async (req, res) => {
       res.send({
         statusCode: 500,
         status: "Error",
-        message:
-          err.message || "Some error occurred while retrieving groups.",
+        message: err.message || "Some error occurred while retrieving Meters.",
       });
     });
 };
@@ -168,8 +165,8 @@ exports.delete = async (req, res) => {
     });
     return;
   }
-  
-  await Group.destroy({
+
+  await Meter.destroy({
     where: { id: id },
   })
     .then(() => {
@@ -181,8 +178,7 @@ exports.delete = async (req, res) => {
       res.send({
         statusCode: 500,
         status: "Error",
-        message:
-          err.message || "Some error occurred while retrieving groups.",
+        message: err.message || "Some error occurred while retrieving Meters.",
       });
     });
 };

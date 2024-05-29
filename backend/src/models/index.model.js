@@ -22,4 +22,6 @@ var db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 db.groups = require("./group.model")(sequelize, Sequelize);
+db.users = require("./user.model")(sequelize, Sequelize);
+db.meters = require("./meter.model")(sequelize, Sequelize);
 module.exports = db;
